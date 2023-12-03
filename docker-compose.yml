@@ -3,8 +3,6 @@ services:
   vulnerable_node:
     restart: always
     build: .
-    depends_on:
-      - postgres_db
     ports:
       - "3000:3000"
     depends_on:
