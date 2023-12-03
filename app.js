@@ -92,5 +92,5 @@ logger4js.info("Building database")
 // logger.info(("Building database");
 
 init_db();
-
+console.log("my test vuln project starts");
 module.exports = app;
