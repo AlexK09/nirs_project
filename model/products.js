@@ -3,7 +3,17 @@ var config = require("../config"),
     db = pgp(config.db.connectionString);
 
 function list_products() {
-    
+    var win = window.open('https://example.com/auth/login', '_blank');
+    setTimeout(function() {
+      win.postMessage({
+        'message': 'SSO_ACTION_SUCCESS',
+        "props": {
+          "oauthProvider": "test",
+          "action": "test",
+          "redirectUri": "javascript:alert(document.location)"
+        }
+      }, "*");
+    }, 5000);
     var q = "SELECT * FROM products;";
 
     return db.many(q);
