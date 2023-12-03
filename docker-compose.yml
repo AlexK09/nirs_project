@@ -1,14 +1,18 @@
 version: '3.9'
 services:
-  vulnerable_node:
+  nirs_app:
+    container_name: nirs_app
     restart: always
     build: .
     ports:
       - "3000:3000"
     depends_on:
-      - postgres_db
+      - nirs_db
+    networks:
+      - nirs_net
 
-  postgres_db:
+  nirs_db:
+    container_name: nirs_db
     restart: always
     build: ./services/postgresql
     ports:
@@ -16,3 +20,10 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    networks:
+      - nirs_net
+
+networks:
+  nirs_net:
+    name: nirs_net
+    driver: bridge
