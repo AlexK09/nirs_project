@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mail-preprod-deployment
+  labels:
+    app: apple
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: apple
+  template:
+    metadata:
+      labels:
+        app: apple
+    spec:
+      containers:
+      - name: sidecar
+        image: busybox
+        env:
+        - name: flag
+          value: "1"
+        command: ["/bin/sh"]
+        args: ["-c", "if [ ${flag} == 1 ]; then while true; do echo 'I am firewall'; sleep 5;done; else while true; do echo 'I slepp'; sleep 10; done; fi"]
+      - name: apple
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+

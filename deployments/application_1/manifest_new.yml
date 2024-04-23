@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: application_1
+  labels:
+    name: application_1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      name: application_1
+  template:
+    metadata:
+      labels:
+        name: application_1
+    spec:
+      containers:
+      - name: sidecar
+        image: net_scan_image
+        env:
+        - name: flag
+          value: "2"
+        command: ["/bin/sh"]
+        args: ["-c", "if [ ${flag} == 1 ]; then while true; do echo 'I am firewall'; sleep 5;done; else while true; do echo 'I slepp'; sleep 10; done; fi"]
+      - name: apple
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
