@@ -19,7 +19,7 @@ spec:
         image: net_scan_image
         env:
         - name: flag
-          value: "2"
+          value: "1"
         command: ["/bin/sh"]
         args: ["-c", "if [ ${flag} == 1 ]; then while true; do echo 'I am firewall'; sleep 5;done; else while true; do echo 'I slepp'; sleep 10; done; fi"]
       - name: apple
